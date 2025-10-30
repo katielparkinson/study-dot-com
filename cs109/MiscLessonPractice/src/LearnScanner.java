@@ -63,7 +63,7 @@ public class LearnScanner {
                 double tempAge = input.nextDouble();
                 userAge = (int) tempAge;
                 // casts tempAge double data type to int
-                System.out.println(userAge + " Damn. You're old.");
+                System.out.println(userAge + " Dang. You're old.");
             }
         } catch (Exception e) {
             System.err.println("Well frick you broke it.");
