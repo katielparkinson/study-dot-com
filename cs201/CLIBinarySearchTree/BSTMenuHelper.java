@@ -1,25 +1,28 @@
 public class BSTMenuHelper {
-    Node root;
 
-    /*
-     * Methods I need to make
-     * //method to print BST inorder
-     * //method to print BST preorder
-     * //method to print BST postorder
-     */
     public static Node createDefaultBST() {
-        Node root = null;
-        for( int i = 1; i <=7; i++) {
-            root = addNode(root, i);
-        }
+        // Can't use addNode method to produce a balanced BST
+        int[] defaultBSTValues = { 1, 2, 3, 4, 5, 6, 7 };
+        Node root = createDefaultBSTHelper(defaultBSTValues, 0, defaultBSTValues.length - 1);
         System.out.println("A Binary Search Tree with values 1 through 7 has been created.");
+        return root;
+    }
+
+    // helper method called by createDefaultBST to create a balanced BST
+    private static Node createDefaultBSTHelper(int[] arr, int start, int end) {
+        if (start > end) {
+            return null;
+        }
+        int mid = (start + end) / 2;
+        Node root = new Node(arr[mid]);
+        root.left = createDefaultBSTHelper(arr, start, mid - 1);
+        root.right = createDefaultBSTHelper(arr, mid + 1, end);
         return root;
     }
 
     public static Node addNode(Node current, int value) {
         if (current == null) {
-            current = new Node(value);
-            return current;
+            return new Node(value);
         }
         if (value < current.value) {
             current.left = addNode(current.left, value);
@@ -32,9 +35,8 @@ public class BSTMenuHelper {
     }
 
     public static Node deleteNode(Node current, int value) {
-        // tree is empty
         if (current == null) {
-            System.out.println("Tree is empty. There are no nodes to delete.");
+            System.out.println("Sorry, that value is not in the tree.");
             return null;
         }
         // Traversal
@@ -71,16 +73,39 @@ public class BSTMenuHelper {
         }
         return current.value;
     }
-    //Left, Root, Right
-    public static void printInOrder() {
-        
-    }
-    //Root, Left, Right
-    public static void printPreOrder() {
 
-    }
     // Left, Root, Right
-    public static void printPostOrder() {
+    public static void printInOrder(Node current) {
+        if (current == null)
+            return;
+        printInOrder(current.left);
+        System.out.print(current.value + " ");
+        printInOrder(current.right);
+    }
 
+    // Root, Left, Right
+    public static void printPreOrder(Node current) {
+        if (current == null)
+            return;
+        System.out.print(current.value + " ");
+        printPreOrder(current.left);
+        printPreOrder(current.right);
+    }
+
+    // Left, Right, Root
+    public static void printPostOrder(Node current) {
+        if (current == null)
+            return;
+        printPostOrder(current.left);
+        printPostOrder(current.right);
+        System.out.print(current.value + " ");
+    }
+
+    public static boolean treeHasNode(Node root) {
+        if (root != null) {
+            return true;
+        }
+        System.out.println("The tree is empty. Operation cannot be completed.");
+        return false;
     }
 }

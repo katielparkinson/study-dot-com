@@ -3,8 +3,8 @@ public class Node {
     Node left;
     Node right;
 
-    //constructor
-    public Node(int value){
+    // constructor
+    public Node(int value) {
         this.value = value;
         this.left = null;
         this.right = null;
